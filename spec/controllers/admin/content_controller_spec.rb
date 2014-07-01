@@ -525,6 +525,15 @@ describe Admin::ContentController do
         article.extended.should == 'bar<!--more-->baz'
       end
 
+      it 'should allow ==== MERGE article' do
+        article = @article
+        merge_article = Factory(:article, :body => 'MERGE content')
+        post :edit, 'id' => article.id, 'article' => article ,'merge_with' => merge_article.id
+        assert_response :redirect
+        article.reload
+        article.body.should == 'A content with several dataMERGE content'
+      end
+
       it 'should delete draft about this article if update' do
         article = @article
         draft = Article.create!(article.attributes.merge(:state => 'draft', :parent_id => article.id, :guid => nil))

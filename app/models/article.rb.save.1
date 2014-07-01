@@ -81,15 +81,8 @@ class Article < Content
   end
 
   def to_merge(article_id)
-   debugger
-   if !Article.find_by_id(article_id).nil? && self.id != article_id
-      article_merge = Article.find(article_id)
-      self.body += article_merge.body
-      self.author = article_merge.author
-      self.title = article_merge.title
-      self.comments += article_merge.comments
-   end
-   return self
+   article_merge = Article.find(article_id)
+   self.body += article_merge.body
   end
 
 

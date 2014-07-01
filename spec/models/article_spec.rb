@@ -26,6 +26,48 @@ describe Article do
     assert_equal [:body, :extended], a.content_fields
   end
 
+ describe "#merge_article" do
+
+    before do
+      @article = Factory(:article, :title => 'title-1', :body => 'body1', :author => 'Juan')
+      @merge_article = Factory(:article, :title => 'title-2', :body => 'body2', :author => 'Pepe')
+#       @article = Article.new(:title => 'title-1', :body => 'body1')
+#       @article.save 
+#       @merge_article = Article.new(:title => 'title-2', :body => 'body2')
+#       @merge_article.save
+    end 
+
+    it "works for simple cases" do
+      assert_equal @article.to_merge(@merge_article.id).body , 'body1body2'        
+    end
+
+    it "move coments to orginal from merged" do 
+      comments_1  = Factory(:comment, :article => @article, :author => 'Maria1', :body => 'BodyComment1')
+      comments_2  = Factory(:comment, :article => @article, :author => 'Maria2', :body => 'BodyComment2')
+      merge_comments  = Factory(:comment, :article => @merge_article, :author => 'Sonia', :body => 'BodyComment3')
+      assert_equal @article.to_merge(@merge_article.id).comments , [comments_1 , comments_2 , merge_comments]
+    end
+
+    it "not merge if not articles exist" do
+      assert_equal @article.to_merge('99').body , 'body1'        
+#      Article.find(@article.id).should_not be_nil
+#      Article.find(@merge_article.id).should_not be_nil
+    end
+
+   it "not merge if articles are the same" do
+      assert_equal @article.to_merge(@article.id).body , 'body1'
+   end
+
+   it "Title should be merge title" do
+      assert_equal @article.to_merge(@merge_article.id).title , 'title-2'
+   end
+
+   it "Author should be merge author" do
+      assert_equal @article.to_merge(@merge_article.id).author , 'Pepe'
+   end
+
+  end
+
   describe "#permalink_url" do
     describe "with hostname" do
       subject { Article.new(:permalink => 'article-3', :published_at => Time.new(2004, 6, 1)).permalink_url(anchor=nil, only_path=false) }

@@ -140,6 +140,7 @@ class Admin::ContentController < Admin::BaseController
   def real_action_for(action); { 'add' => :<<, 'remove' => :delete}[action]; end
 
   def new_or_edit
+#    debugger
     id = params[:id]
     id = params[:article][:id] if params[:article] && params[:article][:id]
     @article = Article.get_or_build_article(id)
@@ -165,6 +166,11 @@ class Admin::ContentController < Admin::BaseController
     if request.post?
       set_article_author
       save_attachments
+
+    # is_numeric?
+    if params[:merge_with].to_s =~ /\A[-+]?\d*\.?\d+\z/
+         set_article_merge
+      end
       
       @article.state = "draft" if @article.draft
 
@@ -182,6 +188,12 @@ class Admin::ContentController < Admin::BaseController
     @macros = TextFilter.macro_filters
     render 'new'
   end
+
+  def set_article_merge
+    @article.to_merge(params[:merge_with])
+  end
+
+
 
   def set_the_flash
     case params[:action]

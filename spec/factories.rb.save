@@ -61,6 +61,7 @@ Factory.define :article do |a|
   a.allow_pings true
 end
 
+# NO FUNCIONA, WHY??????
 Factory.define :merge_article do |a|
   a.title 'Merge - A big article'
   a.body 'MERGE content'
