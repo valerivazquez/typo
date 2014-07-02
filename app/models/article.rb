@@ -84,7 +84,11 @@ class Article < Content
    debugger
    if !Article.find_by_id(article_id).nil? && self.id != article_id
       article_merge = Article.find(article_id)
-      self.body = self.body + " " + article_merge.body
+      if self.body.nil?
+         self.body = article_merge.body
+      else
+         self.body = self.body + " " + article_merge.body
+      end
       self.author = article_merge.author
       self.title = article_merge.title
 #      self.comments += article_merge.comments

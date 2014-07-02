@@ -24,7 +24,7 @@ Feature: Merge Articles
     And show me the page
     And I fill in "merge_with" with "6"
     And I press "Merge"
-    Then the article "Tool2" should have body "body1body2"
+    Then the article "Tool2" should have body "body1 body2"
     Then the article "Tool2" should have author "Maria"
     Then the article "Tool2" should have title "Tool2"
 
@@ -34,32 +34,7 @@ Feature: Merge Articles
     And show me the page
     And I fill in "merge_with" with "6"
     And I press "Merge"
-    Then the article "Tool2" should have comment "Tool2-Com1-Body"
-
-
-
-
-  Scenario: Admin can successfully merge articles
-    Given I am on the article page for "Foobar"
-    And I fill in "comment[body]" with "Comment in Foobar"
-    And I press "comment"
-    And I am logged into the admin panel
-    And  I press "New Articles"
-    And I fill in "merge_with" with "4"
-    And I fill in "title" with "title-new"
-    And I fill in "body" with "BodyOriginal"
-    And I press "Merge"
-    Then the article "Foobar" should have body "BodyOriginalvaleri"
-
-
-  Scenario: Admin can successfully merge articles
-    Given I am on the article page for "Foobar"
-    And show me the page
-    And I fill in "merge_with" with "4"
-#   then the article "Foobar" should have diferent that "4"
-    And I press "Merge"
-    Then the article "Foobar" should have body "valerivazquez"
-#    Then the article "Foobar" should have author "Joan" 
+    Then the article "Tool2" should have comment with body "Tool2-Com1-Body"
 
  Scenario: Non-Admin can't merge articles
     Given I am on the article page for "Foobar"
