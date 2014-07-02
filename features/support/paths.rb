@@ -21,7 +21,7 @@ module NavigationHelpers
       '/admin/categories/new'
 
     when /^the article page for "(.*)"$/i
-       "/admin/content/edit/#{Article.find_by_title($1).id}"
+      "/admin/content/edit/#{Article.find_by_title($1).id}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

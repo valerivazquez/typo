@@ -32,6 +32,20 @@ class Comment < Feedback
     "Comment on #{article.title} by #{author}"
   end
 
+  def self.merge(id, merge_id)
+    com_merge = self.find_by_article_id(merge_id)
+    if com_merge.blank?
+      []
+    else
+      com_merge.attributes = {article_id: id} 
+      com_merge.attributes
+    end
+  end
+
+
+
+
+
   protected
 
   def article_allows_feedback?
