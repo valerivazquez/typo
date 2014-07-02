@@ -154,12 +154,8 @@
     <h4>Merge Articles</h4>
 
 	<input id="Merge" type="text" name="merge_with" class='large' />
-        <%= submit_tag(_("Merge"), {:class => 'btn'}) %>
+        <%= submit_tag(_("Merge"), {:class => 'btn'}) if current_user.admin? %>
         <span id='spinner' style="display:none;"><%= image_tag('spinner.gif') %></span>
-
-
-
-
 
   </div>
 
