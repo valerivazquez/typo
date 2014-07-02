@@ -43,7 +43,7 @@ describe Article do
 
     it "works for simple cases" do
       assert_equal @article.to_merge(@merge_article.id).body , 'body1 body2'        
-#      Article.find_by_id(@merge_article.id).should be_nil
+      Article.find_by_id(@merge_article.id).should be_nil
     end
 
     it "move coments to orginal from merged" do 
@@ -51,13 +51,11 @@ describe Article do
       comments_2  = Factory(:comment, :article => @article, :author => 'Maria2', :body => 'BodyComment2')
 #     merge_comments  = Factory(:comment, :article => @merge_article, :author => 'Sonia', :body => 'BodyComment3')
       assert_equal @article.to_merge(@merge_article.id).comments , [comments_1 , comments_2]
-#      Article.find_by_id(@merge_article.id).should be_nil
+      Article.find_by_id(@merge_article.id).should be_nil
     end
 
     it "not merge if not articles exist" do
       assert_equal @article.to_merge('99').body , 'body1'        
-#      Article.find(@article.id).should_not be_nil
-#      Article.find(@merge_article.id).should_not be_nil
     end
 
    it "not merge if articles are the same" do

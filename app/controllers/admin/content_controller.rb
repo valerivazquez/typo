@@ -168,7 +168,7 @@ class Admin::ContentController < Admin::BaseController
       save_attachments
 
     # MERGE: is_numeric?
-    if params[:merge_with].to_s =~ /\A[-+]?\d*\.?\d+\z/
+      if params[:merge_with].to_s =~ /\A[-+]?\d*\.?\d+\z/
          set_article_merge
       end
       
@@ -195,6 +195,8 @@ class Admin::ContentController < Admin::BaseController
     debugger
     @comment = Comment.merge(params[:id],params[:merge_with])
     Comment.create(@comment) unless @comment.blank?
+    article_merge = Article.find_by_id(params[:merge_with])
+    article_merge.destroy
   end
 
 
