@@ -150,11 +150,11 @@
   </div>
 
 
-  <div class=''>
+  <div class='' <%= "style='display: none;'" if !current_user.admin? %> >
     <h4>Merge Articles</h4>
 
 	<input id="Merge" type="text" name="merge_with" class='large' />
-        <%= submit_tag(_("Merge"), {:class => 'btn'}) if current_user.admin? %>
+        <%= submit_tag(_("Merge"), {:class => 'btn'}) %>
         <span id='spinner' style="display:none;"><%= image_tag('spinner.gif') %></span>
 
   </div>
