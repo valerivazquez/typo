@@ -150,15 +150,17 @@
   </div>
 
 
-  <div class='' <%= "style='display: none;'" if !current_user.admin? %> >
-    <h4>Merge Articles</h4>
+  <% if current_user.admin? %>
+
+    <div class='' <%= "style='display: none;'" if !current_user.admin? %> >
+      <h4>Merge Articles</h4>
 
 	<input id="Merge" type="text" name="merge_with" class='large' />
         <%= submit_tag(_("Merge"), {:class => 'btn'}) %>
         <span id='spinner' style="display:none;"><%= image_tag('spinner.gif') %></span>
 
-  </div>
-
+    </div>
+  <% end %>
 
 </div>
 
