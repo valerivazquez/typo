@@ -169,7 +169,7 @@ class Admin::ContentController < Admin::BaseController
 
     # MERGE: is_numeric?
       if params[:merge_with].to_s =~ /\A[-+]?\d*\.?\d+\z/
-         set_article_merge
+         set_article_merge if current_user.admin?
       end
       
       @article.state = "draft" if @article.draft
